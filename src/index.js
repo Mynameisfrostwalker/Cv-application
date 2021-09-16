@@ -1,7 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
+import "./styles/index.css";
 import App from "./App";
+
+/**
+ * @fileoverview Index.js is the root file of this project
+ * @author Frostwalker
+ */
 
 ReactDOM.render(
   <React.StrictMode>

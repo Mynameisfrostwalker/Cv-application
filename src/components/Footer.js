@@ -1,5 +1,6 @@
 import React from "react";
 import footerStyle from "../styles/Footer.module.css";
+import "@fortawesome/fontawesome-free/js/all";
 
 /**
  * @module Footer

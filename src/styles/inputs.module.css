@@ -4,13 +4,18 @@
     align-items: center;
 }
 
+.label {
+    display: flex;
+    align-items: center;
+}
+
 .pstyle {
     margin-bottom: 0rem;
     display: inline;
 }
 
 .box {
-    box-shadow: 0px 0px 3px 3px rgb(94, 94, 94);
+    box-shadow: 0px 0px 7px 3px rgb(94, 94, 94);
 }
 
 .inputstyle, 
@@ -67,3 +72,4 @@
 .photo {
     display: none;
 }
+

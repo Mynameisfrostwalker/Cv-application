@@ -1,0 +1,69 @@
+.maindiv {
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+}
+
+.pstyle {
+    margin-bottom: 0rem;
+    display: inline;
+}
+
+.box {
+    box-shadow: 0px 0px 3px 3px rgb(94, 94, 94);
+}
+
+.inputstyle, 
+.textstyle, 
+.selectstyle {
+    border: none;
+    outline: none;
+    height: 2rem;
+    background-color: transparent;
+}
+
+.selectstyle {
+    width: 100%;
+}
+
+.selectstyle {
+    appearance: none;
+    outline: 0;
+    border: 0;
+    box-shadow: none;
+    flex: 1;
+    color: black;
+    background-color: transparent;
+    background-image: none;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.select {
+    position: relative;
+    display: flex;
+    width: 20em;
+    height: 3em;
+    border-radius: .25em;
+    overflow: hidden;
+    padding-top: 0.5rem;
+}
+
+.select::after {
+    content: '\25BC';
+    position: absolute;
+    top: -1%;
+    right: 0;
+    padding: 1em;
+    background-color: transparent;
+    transition: .25s all ease;
+    pointer-events: none;
+}
+
+.select:hover::after {
+    color: #f39c12;
+}
+
+.photo {
+    display: none;
+}

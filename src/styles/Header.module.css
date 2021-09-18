@@ -1,7 +1,6 @@
 .header {
-    width: 100%;
-    height: 3rem;
-    padding: 1rem;
+    height: 4rem;
+    padding: 2rem;
     background-color: rgb(164, 227, 247);
     display: flex;
     align-items: center;
@@ -10,13 +9,13 @@
 
 .scroll {
     font-size: 2rem;
-    margin-right: 2rem;
+    margin-right: 3rem;
 }
 
 .firstHeader {
-    margin-bottom: 0rem;
+    font-size: 2.5rem;
 }
 
 .secondHeader {
-    margin-top: 0rem;
+    font-size: 1.5rem;
 }

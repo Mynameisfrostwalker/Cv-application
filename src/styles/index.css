@@ -2,7 +2,33 @@
     grid-area: 1/1/2/3;
 }
 
+.donebutton {
+    grid-area: 5/1/6/3;
+    background-color: rgb(13, 177, 177);
+    color: white;
+}
+
+.donebutton:hover {
+    background-color: rgb(12, 151, 151);
+}
+
 textarea {
     overflow: auto;
     resize: none;
+}
+
+.diverror {
+    border: 3px solid red;
+}
+
+.divgood {
+    border: 3px solid green;
+}
+
+.error.good {
+    color: green;
+}
+
+.error.bad {
+    color: red;
 }

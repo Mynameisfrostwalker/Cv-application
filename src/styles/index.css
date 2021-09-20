@@ -12,6 +12,12 @@
     background-color: rgb(12, 151, 151);
 }
 
+.personalpreviewbutton {
+    grid-area: 5/1/6/3;
+    background-color: rgb(46, 177, 13);
+    color: white;
+}
+
 textarea {
     overflow: auto;
     resize: none;
@@ -31,4 +37,9 @@ textarea {
 
 .error.bad {
     color: red;
+}
+
+h3 {
+    font-size: 1.5rem;
+    font-weight: bold;
 }

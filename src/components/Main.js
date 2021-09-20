@@ -3,7 +3,6 @@ import uniqid from "uniqid";
 import Personal from "./Personal";
 import Education from "./Education";
 import Experience from "./Experience";
-import Skills from "./Skills";
 import main from "../styles/main.module.css";
 import PersonalPreview from "./PersonalPreview";
 import Icon from "../assets/icon.jpg";
@@ -102,7 +101,6 @@ class Main extends React.Component {
           )}
           <Education />
           <Experience />
-          <Skills />
         </div>
       </main>
     );

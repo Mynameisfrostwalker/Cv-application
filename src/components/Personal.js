@@ -3,19 +3,17 @@ import PropTypes from "prop-types";
 import Inputs from "./Inputs";
 import personal from "../styles/personal.module.css";
 import "@fortawesome/fontawesome-free/js/all";
-import Icon from "../assets/icon.jpg";
 
 class Personal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      imgsrc: Icon,
       valid: {
         photo: "null",
         title: "null",
         firstName: "null",
         lastName: "null",
-        num: "null",
+        number: "null",
         mail: "null",
         address: "null",
       },
@@ -24,21 +22,14 @@ class Personal extends React.Component {
         title: "null",
         firstName: "null",
         lastName: "null",
-        num: "null",
+        number: "null",
         mail: "null",
         address: "null",
       },
     };
-    this.handleImg = this.handleImg.bind(this);
     this.handleInvalidate = this.handleInvalidate.bind(this);
     this.validator = this.validator.bind(this);
     this.showError = this.showError.bind(this);
-  }
-
-  handleImg(e) {
-    this.setState({
-      imgsrc: URL.createObjectURL(e.target.files[0]),
-    });
   }
 
   handleInvalidate(e) {
@@ -88,7 +79,7 @@ class Personal extends React.Component {
         goal
       ] = `Input should be at most ${input.max}; you entered ${input.value}`;
     } else if (input.validity.patternMismatch) {
-      inputError[goal] = `Input must be in the form 123-456-7890`;
+      inputError[goal] = `Input must be in the form 123-4567-8910`;
     }
     this.setState({
       errmessage: inputError,
@@ -96,20 +87,20 @@ class Personal extends React.Component {
   }
 
   render() {
-    const { imgsrc, valid, errmessage } = this.state;
-    const { values } = this.props;
+    const { valid, errmessage } = this.state;
+    const { values, submit, imgsrc, handleImg } = this.props;
     return (
-      <form className={personal.formstyle}>
+      <form className={personal.formstyle} onSubmit={submit}>
         <Inputs
           hfor="photo"
           kind="file"
           acc="image/*"
-          imgChange={this.handleImg}
-          imgsrc={imgsrc}
+          imgChange={handleImg}
+          imgsrc={imgsrc[0]}
           invalid={this.handleInvalidate}
           displayinvalid={valid.photo}
           errormessage={errmessage.photo}
-          value={values.photo}
+          value={values.photo[0]}
         />
         <Inputs
           hfor="title"
@@ -118,7 +109,7 @@ class Personal extends React.Component {
           invalid={this.handleInvalidate}
           displayinvalid={valid.title}
           errormessage={errmessage.title}
-          value={values.title}
+          value={values.title[0]}
         />
         <Inputs
           hfor="firstName"
@@ -128,7 +119,7 @@ class Personal extends React.Component {
           invalid={this.handleInvalidate}
           displayinvalid={valid.firstName}
           errormessage={errmessage.firstName}
-          value={values.firstName}
+          value={values.firstName[0]}
         />
         <Inputs
           hfor="lastName"
@@ -138,7 +129,7 @@ class Personal extends React.Component {
           invalid={this.handleInvalidate}
           displayinvalid={valid.lastName}
           errormessage={errmessage.lastName}
-          values={values.lastName}
+          value={values.lastName[0]}
         />
         <Inputs
           hfor="mail"
@@ -148,28 +139,29 @@ class Personal extends React.Component {
           invalid={this.handleInvalidate}
           displayinvalid={valid.mail}
           errormessage={errmessage.mail}
-          values={values.mail}
+          value={values.mail[0]}
         />
         <Inputs
-          hfor="num"
+          hfor="number"
           kind="tel"
           name="Phone Number*"
           req
-          pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+          pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}"
           invalid={this.handleInvalidate}
-          displayinvalid={valid.num}
-          errormessage={errmessage.num}
-          value={values.num}
+          displayinvalid={valid.number}
+          errormessage={errmessage.number}
+          value={values.number[0]}
         />
         <Inputs
           hfor="address"
           type="textarea"
           name="Home Address*"
           req
+          minlength={10}
           invalid={this.handleInvalidate}
           displayinvalid={valid.address}
           errormessage={errmessage.address}
-          value={values.address}
+          value={values.address[0]}
         />
         <button type="submit" className="donebutton">
           Done
@@ -182,15 +174,18 @@ class Personal extends React.Component {
 
 Personal.propTypes = {
   change: PropTypes.func.isRequired,
+  submit: PropTypes.func.isRequired,
   values: PropTypes.shape({
     photo: PropTypes.string,
     title: PropTypes.string,
     firstName: PropTypes.string,
     lastName: PropTypes.string,
     mail: PropTypes.string,
-    num: PropTypes.string,
+    number: PropTypes.string,
     address: PropTypes.string,
   }).isRequired,
+  imgsrc: PropTypes.string.isRequired,
+  handleImg: PropTypes.func.isRequired,
 };
 
 export default Personal;

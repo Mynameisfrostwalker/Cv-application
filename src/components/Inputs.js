@@ -5,6 +5,7 @@ import {
   faTimesCircle,
   faCheckCircle,
 } from "@fortawesome/free-solid-svg-icons";
+import { format } from "date-fns";
 import input from "../styles/inputs.module.css";
 
 const Inputs = ({
@@ -22,6 +23,9 @@ const Inputs = ({
   errormessage,
   value,
   minlength,
+  max,
+  min,
+  datakey,
 }) => {
   const display = () => {
     if (type === "select") {
@@ -78,6 +82,9 @@ const Inputs = ({
         }
         pattern={pattern}
         value={value}
+        max={kind === "date" ? max : null}
+        min={hfor === "End Date" ? min : null}
+        data-key={datakey}
       />
     );
   };
@@ -161,6 +168,15 @@ Inputs.defaultProps = {
   pattern: null,
   errormessage: null,
   minlength: 0,
+  max: `${format(
+    new Date(
+      new Date().getFullYear(),
+      new Date().getMonth(),
+      new Date().getDate()
+    ),
+    "yyyy-MM-dd"
+  )}`,
+  min: "",
 };
 
 Inputs.propTypes = {
@@ -179,6 +195,9 @@ Inputs.propTypes = {
   errormessage: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   value: PropTypes.string.isRequired,
   minlength: PropTypes.number,
+  max: PropTypes.string,
+  min: PropTypes.string,
+  datakey: PropTypes.number.isRequired,
 };
 
 export default Inputs;

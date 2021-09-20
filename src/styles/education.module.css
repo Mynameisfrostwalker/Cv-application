@@ -1,0 +1,27 @@
+.grid {
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+.donebutton {
+    grid-area: 3/1/4/2;
+    background-color: rgb(13, 177, 177);
+    color: white;
+}
+
+.donebutton:hover {
+    background-color: rgb(12, 151, 151);
+}
+
+.addbutton {
+    grid-area: 3/2/4/3;
+    background-color: rgb(177, 13, 13);
+    color: white;
+}
+
+.addbutton:hover {
+    background-color: rgb(151, 12, 12);
+}

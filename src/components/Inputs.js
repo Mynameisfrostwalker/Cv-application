@@ -21,6 +21,7 @@ const Inputs = ({
   pattern,
   errormessage,
   value,
+  minlength,
 }) => {
   const display = () => {
     if (type === "select") {
@@ -52,6 +53,8 @@ const Inputs = ({
           className={input.textstyle}
           onChange={invalid}
           value={value}
+          minLength={minlength}
+          spellCheck="false"
         />
       );
     }
@@ -99,6 +102,9 @@ const Inputs = ({
   };
 
   const err = () => {
+    if (hfor === "photo") {
+      return null;
+    }
     if (errormessage !== "null") {
       return (
         <span
@@ -154,7 +160,7 @@ Inputs.defaultProps = {
   imgChange: null,
   pattern: null,
   errormessage: null,
-  value: "",
+  minlength: 0,
 };
 
 Inputs.propTypes = {
@@ -171,7 +177,8 @@ Inputs.propTypes = {
     .isRequired,
   pattern: PropTypes.string,
   errormessage: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
-  value: PropTypes.string,
+  value: PropTypes.string.isRequired,
+  minlength: PropTypes.number,
 };
 
 export default Inputs;

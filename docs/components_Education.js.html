@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/Education.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/Education.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from "react";
+import PropTypes from "prop-types";
+import Inputs from "./Inputs";
+import education from "../styles/education.module.css";
+import "@fortawesome/fontawesome-free/js/all";
+
+/**
+ * @module Education
+ */
+
+/**
+ * Personal component
+ */
+class Education extends React.Component {
+  /**
+   * @param {Object} props
+   */
+  constructor(props) {
+    super(props);
+    this.state = {
+      valid: {
+        "School Name": "null",
+        Degree: "null",
+        "Start Date": "null",
+        "End Date": "null",
+      },
+      errmessage: {
+        "School Name": "null",
+        Degree: "null",
+        "Start Date": "null",
+        "End Date": "null",
+      },
+    };
+
+    this.handleInvalidate = this.handleInvalidate.bind(this);
+    this.validator = this.validator.bind(this);
+    this.showError = this.showError.bind(this);
+  }
+
+  /**
+   * Form Validation
+   * @param {Object} e
+   */
+  handleInvalidate(e) {
+    const { change } = this.props;
+    change(e);
+    this.validator(e);
+    const { valid } = this.state;
+    const newObj = { ...valid };
+    if (!e.target.validity.valid) {
+      newObj[e.target.id] = false;
+    } else newObj[e.target.id] = true;
+    this.setState({ valid: newObj });
+  }
+
+  /**
+   * Form Validation
+   * @param {Object} e
+   */
+  validator(event) {
+    const goal = event.target.id;
+    const { valid } = this.state;
+    const newObj = { ...valid };
+    if (event.target.validity.valid) {
+      newObj[goal] = "Input is valid!";
+      this.setState({
+        errmessage: newObj,
+      });
+    } else this.showError(event.target, valid, goal);
+  }
+
+  /**
+   * shows errors
+   * @param {Object} input
+   * @param {Object} obj - Invalid state
+   * @param {string} goal - Input id
+   */
+  showError(input, obj, goal) {
+    const inputError = { ...obj };
+    if (input.validity.valueMissing) {
+      inputError[goal] = "Input must not be left blank!";
+    } else if (input.validity.typeMismatch) {
+      inputError[goal] = `Entered value must be a valid ${input.type}.`;
+    } else if (input.validity.tooShort) {
+      inputError[
+        goal
+      ] = `Input should be at least ${input.minLength} characters; you entered ${input.value.length}.`;
+    } else if (input.validity.tooLong) {
+      inputError[
+        goal
+      ] = `Input should be at most ${input.maxLength} characters; you entered ${input.value.length}.`;
+    } else if (input.validity.rangeUnderflow) {
+      inputError[
+        goal
+      ] = `Input should be at least ${input.min}; you entered ${input.value}`;
+    } else if (input.validity.rangeOverflow) {
+      inputError[
+        goal
+      ] = `Input should be at most ${input.max}; you entered ${input.value}`;
+    } else if (input.validity.patternMismatch) {
+      inputError[goal] = `Input must be in the form 123-4567-8910`;
+    }
+    this.setState({
+      errmessage: inputError,
+    });
+  }
+
+  render() {
+    const { valid, errmessage } = this.state;
+    const { datakey, values, newEducation, submit, expDelete } = this.props;
+    return (
+      &lt;form className={education.grid} data-key={datakey} onSubmit={submit}>
+        &lt;Inputs
+          hfor="School Name"
+          kind="text"
+          name="School Name"
+          invalid={this.handleInvalidate}
+          displayinvalid={valid["School Name"]}
+          errormessage={errmessage["School Name"]}
+          datakey={datakey}
+          value={values["School Name"][0]}
+          req
+        />
+        &lt;Inputs
+          hfor="Degree"
+          kind="text"
+          name="Qualification awarded"
+          invalid={this.handleInvalidate}
+          displayinvalid={valid.Degree}
+          errormessage={errmessage.Degree}
+          datakey={datakey}
+          value={values.Degree[0]}
+          req
+        />
+        &lt;Inputs
+          hfor="Start Date"
+          kind="date"
+          name="From"
+          invalid={this.handleInvalidate}
+          displayinvalid={valid["Start Date"]}
+          errormessage={errmessage["Start Date"]}
+          datakey={datakey}
+          value={values["Start Date"][0]}
+          req
+        />
+        &lt;Inputs
+          hfor="End Date"
+          kind="date"
+          name="To"
+          invalid={this.handleInvalidate}
+          displayinvalid={valid["End Date"]}
+          errormessage={errmessage["End Date"]}
+          datakey={datakey}
+          min={values["Start Date"][0]}
+          value={values["End Date"][0]}
+        />
+        &lt;button
+          type="submit"
+          className={education.donebutton}
+          datakey={datakey}
+        >
+          Done
+          &lt;i className="fas fa-paper-plane" />
+        &lt;/button>
+        {datakey !== 0 ? (
+          &lt;button
+            type="button"
+            className={education.deletebutton}
+            data-key={datakey}
+            onClick={expDelete}
+          >
+            Delete
+            &lt;i className="fas fa-trash" />
+          &lt;/button>
+        ) : (
+          &lt;button
+            type="button"
+            className={education.addbutton}
+            onClick={newEducation}
+          >
+            Add
+            &lt;i className="fas fa-plus-circle" />
+          &lt;/button>
+        )}
+      &lt;/form>
+    );
+  }
+}
+
+/**
+ * @type {Object}
+ */
+Education.propTypes = {
+  datakey: PropTypes.number.isRequired,
+  change: PropTypes.func.isRequired,
+  values: PropTypes.shape({
+    "School Name": PropTypes.string,
+    Degree: PropTypes.string,
+    "Start Date": PropTypes.string,
+    "End Date": PropTypes.string,
+  }).isRequired,
+  newEducation: PropTypes.func.isRequired,
+  submit: PropTypes.func.isRequired,
+  expDelete: PropTypes.func.isRequired,
+};
+
+export default Education;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-App.html">App</a></li><li><a href="module-Education.html">Education</a></li><li><a href="module-EduPreview.html">EduPreview</a></li><li><a href="module-Experience.html">Experience</a></li><li><a href="module-ExpPreview.html">ExpPreview</a></li><li><a href="module-Footer.html">Footer</a></li><li><a href="module-Header.html">Header</a></li><li><a href="module-Inputs.html">Inputs</a></li><li><a href="module-Main.html">Main</a></li><li><a href="module-Personal.html">Personal</a></li><li><a href="module-PersonalPreview.html">PersonalPreview</a></li></ul><h3>Classes</h3><ul><li><a href="module-Education-Education.html">Education</a></li><li><a href="module-Experience-Experience.html">Experience</a></li><li><a href="module-Main-Main.html">Main</a></li><li><a href="module-Personal-Personal.html">Personal</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Tue Sep 21 2021 10:12:29 GMT+0100 (West Africa Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

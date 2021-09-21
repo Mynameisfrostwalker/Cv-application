@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/Personal.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/Personal.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from "react";
+import PropTypes from "prop-types";
+import Inputs from "./Inputs";
+import personal from "../styles/personal.module.css";
+import "@fortawesome/fontawesome-free/js/all";
+
+/**
+ * @module Personal
+ */
+
+/**
+ * Personal component
+ */
+class Personal extends React.Component {
+  /**
+   * @param {Object} props
+   */
+  constructor(props) {
+    super(props);
+    this.state = {
+      valid: {
+        photo: "null",
+        title: "null",
+        firstName: "null",
+        lastName: "null",
+        number: "null",
+        mail: "null",
+        address: "null",
+      },
+      errmessage: {
+        photo: "null",
+        title: "null",
+        firstName: "null",
+        lastName: "null",
+        number: "null",
+        mail: "null",
+        address: "null",
+      },
+    };
+    this.handleInvalidate = this.handleInvalidate.bind(this);
+    this.validator = this.validator.bind(this);
+    this.showError = this.showError.bind(this);
+  }
+
+  /**
+   * Form Validation
+   * @param {Object} e
+   */
+  handleInvalidate(e) {
+    const { change } = this.props;
+    change(e);
+    this.validator(e);
+    const { valid } = this.state;
+    const newObj = { ...valid };
+    if (!e.target.validity.valid) {
+      newObj[e.target.id] = false;
+    } else newObj[e.target.id] = true;
+    this.setState({ valid: newObj });
+  }
+
+  /**
+   * Form Validation
+   * @param {Object} event
+   */
+  validator(event) {
+    const goal = event.target.id;
+    const { valid } = this.state;
+    const newObj = { ...valid };
+    if (event.target.validity.valid) {
+      newObj[goal] = "Input is valid!";
+      this.setState({
+        errmessage: newObj,
+      });
+    } else this.showError(event.target, valid, goal);
+  }
+
+  /**
+   * shows errors
+   * @param {Object} input
+   * @param {Object} obj - Invalid state
+   * @param {string} goal - Input id
+   */
+  showError(input, obj, goal) {
+    const inputError = { ...obj };
+    if (input.validity.valueMissing) {
+      inputError[goal] = "Input must not be left blank!";
+    } else if (input.validity.typeMismatch) {
+      inputError[goal] = `Entered value must be a valid ${input.type}.`;
+    } else if (input.validity.tooShort) {
+      inputError[
+        goal
+      ] = `Input should be at least ${input.minLength} characters; you entered ${input.value.length}.`;
+    } else if (input.validity.tooLong) {
+      inputError[
+        goal
+      ] = `Input should be at most ${input.maxLength} characters; you entered ${input.value.length}.`;
+    } else if (input.validity.rangeUnderflow) {
+      inputError[
+        goal
+      ] = `Input should be at least ${input.min}; you entered ${input.value}`;
+    } else if (input.validity.rangeOverflow) {
+      inputError[
+        goal
+      ] = `Input should be at most ${input.max}; you entered ${input.value}`;
+    } else if (input.validity.patternMismatch) {
+      inputError[goal] = `Input must be in the form 123-4567-8910`;
+    }
+    this.setState({
+      errmessage: inputError,
+    });
+  }
+
+  render() {
+    const { valid, errmessage } = this.state;
+    const { values, submit, imgsrc, handleImg } = this.props;
+    return (
+      &lt;form className={personal.formstyle} onSubmit={submit}>
+        &lt;Inputs
+          hfor="photo"
+          kind="file"
+          acc="image/*"
+          imgChange={handleImg}
+          imgsrc={imgsrc[0]}
+          invalid={this.handleInvalidate}
+          displayinvalid={valid.photo}
+          errormessage={errmessage.photo}
+          value={values.photo[0]}
+        />
+        &lt;Inputs
+          hfor="title"
+          name=""
+          type="select"
+          invalid={this.handleInvalidate}
+          displayinvalid={valid.title}
+          errormessage={errmessage.title}
+          value={values.title[0]}
+        />
+        &lt;Inputs
+          hfor="firstName"
+          kind="text"
+          name="First Name*"
+          req
+          invalid={this.handleInvalidate}
+          displayinvalid={valid.firstName}
+          errormessage={errmessage.firstName}
+          value={values.firstName[0]}
+        />
+        &lt;Inputs
+          hfor="lastName"
+          kind="text"
+          name="Last Name*"
+          req
+          invalid={this.handleInvalidate}
+          displayinvalid={valid.lastName}
+          errormessage={errmessage.lastName}
+          value={values.lastName[0]}
+        />
+        &lt;Inputs
+          hfor="mail"
+          kind="email"
+          name="Email*"
+          req
+          invalid={this.handleInvalidate}
+          displayinvalid={valid.mail}
+          errormessage={errmessage.mail}
+          value={values.mail[0]}
+        />
+        &lt;Inputs
+          hfor="number"
+          kind="tel"
+          name="Phone Number*"
+          req
+          pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}"
+          invalid={this.handleInvalidate}
+          displayinvalid={valid.number}
+          errormessage={errmessage.number}
+          value={values.number[0]}
+        />
+        &lt;Inputs
+          hfor="address"
+          type="textarea"
+          name="Home Address*"
+          req
+          minlength={10}
+          invalid={this.handleInvalidate}
+          displayinvalid={valid.address}
+          errormessage={errmessage.address}
+          value={values.address[0]}
+        />
+        &lt;button type="submit" className="donebutton">
+          Done
+          &lt;i className="fas fa-paper-plane" />
+        &lt;/button>
+      &lt;/form>
+    );
+  }
+}
+
+/**
+ * @type {Object}
+ */
+Personal.propTypes = {
+  change: PropTypes.func.isRequired,
+  submit: PropTypes.func.isRequired,
+  values: PropTypes.shape({
+    photo: PropTypes.string,
+    title: PropTypes.string,
+    firstName: PropTypes.string,
+    lastName: PropTypes.string,
+    mail: PropTypes.string,
+    number: PropTypes.string,
+    address: PropTypes.string,
+  }).isRequired,
+  imgsrc: PropTypes.string.isRequired,
+  handleImg: PropTypes.func.isRequired,
+};
+
+export default Personal;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-App.html">App</a></li><li><a href="module-Education.html">Education</a></li><li><a href="module-EduPreview.html">EduPreview</a></li><li><a href="module-Experience.html">Experience</a></li><li><a href="module-ExpPreview.html">ExpPreview</a></li><li><a href="module-Footer.html">Footer</a></li><li><a href="module-Header.html">Header</a></li><li><a href="module-Inputs.html">Inputs</a></li><li><a href="module-Main.html">Main</a></li><li><a href="module-Personal.html">Personal</a></li><li><a href="module-PersonalPreview.html">PersonalPreview</a></li></ul><h3>Classes</h3><ul><li><a href="module-Education-Education.html">Education</a></li><li><a href="module-Experience-Experience.html">Experience</a></li><li><a href="module-Main-Main.html">Main</a></li><li><a href="module-Personal-Personal.html">Personal</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Tue Sep 21 2021 10:12:29 GMT+0100 (West Africa Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

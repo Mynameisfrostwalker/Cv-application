@@ -7,7 +7,7 @@ import "@fortawesome/fontawesome-free/js/all";
  */
 
 /**
- * Footer
+ * Footer component
  * @return {JSX}
  */
 const Footer = () => (

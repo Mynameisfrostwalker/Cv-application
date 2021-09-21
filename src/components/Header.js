@@ -7,7 +7,7 @@ import headerStyles from "../styles/Header.module.css";
  */
 
 /**
- * Header
+ * Header component
  * @return {JSX}
  */
 const Header = () => (

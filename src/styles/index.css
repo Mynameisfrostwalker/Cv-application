@@ -1,3 +1,15 @@
+html {
+    min-width: max-content;
+}
+
+body, #container {
+    min-height: 100vh;
+}
+
+#root {
+    min-height: 100%
+}
+
 .photoclass {
     grid-area: 1/1/2/3;
 }
@@ -14,6 +26,11 @@
 
 .personalpreviewbutton {
     grid-area: 5/1/6/3;
+    background-color: rgb(46, 177, 13);
+    color: white;
+}
+
+.EduPreviewbutton {
     background-color: rgb(46, 177, 13);
     color: white;
 }

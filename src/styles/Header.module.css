@@ -1,5 +1,5 @@
 .header {
-    height: 4rem;
+    min-height: 4rem;
     padding: 2rem;
     background-color: rgb(164, 227, 247);
     display: flex;
@@ -8,7 +8,7 @@
 }
 
 .scroll {
-    font-size: 2rem;
+    font-size: 4rem;
     margin-right: 3rem;
 }
 

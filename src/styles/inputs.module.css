@@ -1,5 +1,5 @@
 .maindiv {
-    height: 2.5rem;
+    min-height: 2.5rem;
     display: flex;
     align-items: center;
 }
@@ -23,7 +23,7 @@
 .selectstyle {
     border: none;
     outline: none;
-    height: 2rem;
+    height: 3rem;
     background-color: transparent;
 }
 
@@ -52,6 +52,7 @@
     border-radius: .25em;
     overflow: hidden;
     padding-top: 0.5rem;
+    align-items: center;
 }
 
 .select::after {

@@ -8,6 +8,10 @@ import app from "./styles/app.module.css";
  * @module App
  */
 
+/**
+ * App component
+ * @return {JSX}
+ */
 const App = () => (
   <div id="container">
     <Header />

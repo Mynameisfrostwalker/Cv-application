@@ -3,6 +3,17 @@ import PropTypes from "prop-types";
 import "@fortawesome/fontawesome-free/js/all";
 import grid from "../styles/ppreview.module.css";
 
+/**
+ * @module PersonalPreview
+ */
+
+/**
+ * Personal Preview component
+ * @param {Object} param0 - props
+ * @param {Object} param0.values -Values to display
+ * @param {Function} param0.editMode -Edit function
+ * @return {JSX}
+ */
 const PersonalPreview = ({ values, editMode }) => {
   const display = (info, key) => {
     if (key === "photo") {
@@ -44,6 +55,9 @@ const PersonalPreview = ({ values, editMode }) => {
   );
 };
 
+/**
+ * @type {Object}
+ */
 PersonalPreview.propTypes = {
   values: PropTypes.shape({
     photo: PropTypes.string,

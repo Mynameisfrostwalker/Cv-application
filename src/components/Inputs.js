@@ -8,6 +8,32 @@ import {
 import { format } from "date-fns";
 import input from "../styles/inputs.module.css";
 
+/**
+ * @module Inputs
+ */
+
+/**
+ * Inputs component
+ * @param {Object} param0 - Props
+ * @param {String} param0.hfor - Input name and id
+ * @param {String} param0.kind - Input type attribute(text, date, tel)
+ * @param {String} param0.name - Display name
+ * @param {String} param0.type - Input type(input, select, textarea)
+ * @param {Boolean} param0.req - Required
+ * @param {String} param0.acc - Image input accept attribute
+ * @param {Function} param0.imgChange - Function called on image change
+ * @param {String} param0.imgsrc -Image src attribute
+ * @param {Function} param0.invalid - Form validation function
+ * @param {String | Boolean} param0.displayinvalid - error message display control
+ * @param {String} param0.pattern - Input pattern attribute
+ * @param {String | Boolean} param0.errormessage - Error message
+ * @param {String} param0.value - Input value attribute
+ * @param {Number} param0.minLength - Input minlength attribute
+ * @param {String} param0.max - Input max attribute
+ * @param {String} param0.min - Input min attribute
+ * @param {Number} param0.datakey - Input data-key attribute
+ * @return {JSX}
+ */
 const Inputs = ({
   hfor,
   kind,
@@ -157,6 +183,9 @@ const Inputs = ({
   );
 };
 
+/**
+ * @type {Object}
+ */
 Inputs.defaultProps = {
   name: "",
   type: "input",
@@ -179,6 +208,9 @@ Inputs.defaultProps = {
   min: "",
 };
 
+/**
+ * @type {Object}
+ */
 Inputs.propTypes = {
   hfor: PropTypes.string.isRequired,
   kind: PropTypes.string,

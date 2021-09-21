@@ -4,7 +4,17 @@ import Inputs from "./Inputs";
 import personal from "../styles/personal.module.css";
 import "@fortawesome/fontawesome-free/js/all";
 
+/**
+ * @module Personal
+ */
+
+/**
+ * Personal component
+ */
 class Personal extends React.Component {
+  /**
+   * @param {Object} props
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -32,6 +42,10 @@ class Personal extends React.Component {
     this.showError = this.showError.bind(this);
   }
 
+  /**
+   * Form Validation
+   * @param {Object} e
+   */
   handleInvalidate(e) {
     const { change } = this.props;
     change(e);
@@ -44,6 +58,10 @@ class Personal extends React.Component {
     this.setState({ valid: newObj });
   }
 
+  /**
+   * Form Validation
+   * @param {Object} event
+   */
   validator(event) {
     const goal = event.target.id;
     const { valid } = this.state;
@@ -56,6 +74,12 @@ class Personal extends React.Component {
     } else this.showError(event.target, valid, goal);
   }
 
+  /**
+   * shows errors
+   * @param {Object} input
+   * @param {Object} obj - Invalid state
+   * @param {string} goal - Input id
+   */
   showError(input, obj, goal) {
     const inputError = { ...obj };
     if (input.validity.valueMissing) {
@@ -172,6 +196,9 @@ class Personal extends React.Component {
   }
 }
 
+/**
+ * @type {Object}
+ */
 Personal.propTypes = {
   change: PropTypes.func.isRequired,
   submit: PropTypes.func.isRequired,
